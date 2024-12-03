@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function ToggleButton() {
     const [darkMode, setDarkMode] = useState(() => {
-        return localStorage.getItem("darkMode") === "true" ? true : false;
+        // this will return true if darkMode is true in localStorage, otherwise false to set the initial state
+        return localStorage.getItem("darkMode") === "false" ? false : true;
     });
 
     useEffect(() => {
@@ -20,7 +21,7 @@ function ToggleButton() {
 
     return (
         <>
-            <button onClick={lightModeHandler}>{darkMode ? "Dark Mode" : "Light Mode"}</button>
+            <button onClick={lightModeHandler}>{darkMode ? "Light Mode" : "Dark Mode"}</button>
         </>
     );
 }

@@ -1,31 +1,29 @@
-import pluginJs from "@eslint/js";
-import pluginImport from "eslint-plugin-import";
-import pluginReact from "eslint-plugin-react";
-import unusedImports from "eslint-plugin-unused-imports";
+import js from "@eslint/js";
 import globals from "globals";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
+import unusedImports from "eslint-plugin-unused-imports";
+import pluginImport from "eslint-plugin-import";
 
-/** @type {import('eslint').Linter.Config[]} */
-export default [
-    { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
-    { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
-    pluginJs.configs.recommended,
-    ...tseslint.configs.recommended,
+export default tseslint.config(
+    { ignores: ["dist", "node_modules", "src/assets/**"] },
     {
-        ...pluginReact.configs.flat.recommended,
-        settings: {
-            react: {
-                version: "detect",
-            },
+        extends: [js.configs.recommended, ...tseslint.configs.recommended],
+        files: ["**/*.{ts,tsx}"],
+        languageOptions: {
+            ecmaVersion: 2020,
+            globals: globals.browser,
         },
-    },
-    {
-        ignores: ["node_modules"],
         plugins: {
+            "react-hooks": reactHooks,
+            "react-refresh": reactRefresh,
             "unused-imports": unusedImports,
             import: pluginImport,
         },
         rules: {
+            ...reactHooks.configs.recommended.rules,
+            "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
             "@typescript-eslint/no-unused-vars": "error",
             "unused-imports/no-unused-imports": "error",
             "unused-imports/no-unused-vars": [
@@ -49,5 +47,5 @@ export default [
                 },
             ],
         },
-    },
-];
+    }
+);
