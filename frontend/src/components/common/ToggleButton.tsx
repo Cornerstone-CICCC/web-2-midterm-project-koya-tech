@@ -1,27 +1,13 @@
-import { useEffect, useState } from "react";
+import { Switch } from "../ui/switch";
+
+import useDarkMode from "@/hooks/useDarkMode";
 
 function ToggleButton() {
-    const [darkMode, setDarkMode] = useState(() => {
-        // this will return true if darkMode is true in localStorage, otherwise false to set the initial state
-        return localStorage.getItem("darkMode") === "false" ? false : true;
-    });
-
-    useEffect(() => {
-        if (darkMode) {
-            document.documentElement.classList.add("dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-        }
-        localStorage.setItem("darkMode", darkMode.toString());
-    }, [darkMode]);
-
-    function lightModeHandler() {
-        setDarkMode(!darkMode);
-    }
+    const { darkMode, toggleDarkMode } = useDarkMode();
 
     return (
         <>
-            <button onClick={lightModeHandler}>{darkMode ? "Light Mode" : "Dark Mode"}</button>
+            <Switch checked={darkMode} onCheckedChange={toggleDarkMode} />
         </>
     );
 }
