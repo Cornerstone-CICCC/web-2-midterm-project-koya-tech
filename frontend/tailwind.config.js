@@ -11,6 +11,7 @@ export default {
                 pvBlueDartFrog: "#3c78a0",
                 pvKuretakeBlackManga: "#001428",
                 pvMississippiRiver: "#3c648c",
+                pvGrey: "#415266",
                 background: "hsl(var(--background))",
                 foreground: "hsl(var(--foreground))",
                 card: {

@@ -1,3 +1,5 @@
+import Header from "../common/Header";
+
 import MainScreen from "./MainScreen";
 import MovieRow from "./MovieRow";
 
@@ -6,7 +8,8 @@ import fetchListObject from "@/lib/fetchList";
 function Home() {
     const fetchList = fetchListObject;
     return (
-        <div>
+        <>
+            <Header title="" />
             <MainScreen
                 category={fetchList.nowPlaying.category}
                 requestedUrl={fetchList.nowPlaying.url}
@@ -20,7 +23,7 @@ function Home() {
                 category={fetchList.upcoming.category}
                 requestedUrl={fetchList.upcoming.url}
             />
-        </div>
+        </>
     );
 }
 

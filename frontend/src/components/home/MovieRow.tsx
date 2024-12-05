@@ -29,7 +29,7 @@ function MovieRow({ category, requestedUrl }: MovieRowProps) {
 
     return (
         <>
-            <h2 className=" mx-4 italic font-bold">{`${category}`}</h2>
+            <h2 className=" mx-4 font-mono font-bold">{`${category}`}</h2>
             <ScrollArea className="w-full whitespace-nowrap rounded-md">
                 <div className="flex w-max space-x-4 p-4">
                     {movies.map((movie) => (

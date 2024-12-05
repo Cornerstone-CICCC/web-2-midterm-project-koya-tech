@@ -5,7 +5,6 @@ import { Route, Routes } from "react-router-dom";
 import About from "./components/about/About";
 import Chat from "./components/chat/Chat";
 import Footer from "./components/common/Footer";
-import Header from "./components/common/Header";
 import Home from "./components/home/Home";
 import Search from "./components/search/Search";
 import DarkModeProvider from "./providers/DarkProvider";
@@ -14,7 +13,6 @@ function App() {
     return (
         <>
             <DarkModeProvider>
-                <Header />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/search" element={<Search />} />
