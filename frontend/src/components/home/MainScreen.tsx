@@ -1,52 +1,21 @@
-import axios from "axios";
 import Autoplay from "embla-carousel-autoplay";
 import { useEffect, useState } from "react";
 
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselPrevious,
-    CarouselNext,
-} from "../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 
-interface MovieType {
-    adult: boolean;
-    backdrop_path: string;
-    genre_ids: number[];
-    id: number;
-    original_language: string;
-    original_title: string;
-    overview: string;
-    popularity: number;
-    poster_path: string;
-    release_date: string;
-    title: string;
-    video: boolean;
-    vote_average: number;
-    vote_count: number;
-}
+import fetchData from "@/lib/fetchData";
+import { MovieRowProps, MovieType } from "@/types";
 
-function MainScreen() {
+function MainScreen({ requestedUrl }: MovieRowProps) {
     const [movies, setMovies] = useState<MovieType[]>([]);
     const [loading, setLoading] = useState(true);
     // const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchUpcomingMovies = async () => {
+        const fetchMovies = async () => {
             try {
-                const response = await axios.get("https://api.themoviedb.org/3/movie/upcoming", {
-                    params: {
-                        language: "en-US",
-                        page: 1,
-                    },
-                    headers: {
-                        accept: "application/json",
-                        Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN}`,
-                    },
-                });
-
-                setMovies(response.data.results);
+                const data = await fetchData(requestedUrl);
+                setMovies(data.results);
                 setLoading(false);
             } catch (err) {
                 // setError(err);
@@ -55,8 +24,8 @@ function MainScreen() {
             }
         };
 
-        fetchUpcomingMovies();
-    }, []);
+        fetchMovies();
+    });
 
     if (loading) return <div>Loading...</div>;
 
@@ -89,8 +58,8 @@ function MainScreen() {
                         </CarouselItem>
                     ))}
                 </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
+                {/* <CarouselPrevious />
+                <CarouselNext /> */}
             </Carousel>
         </div>
     );
